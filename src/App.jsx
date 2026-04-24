@@ -68,7 +68,7 @@ function App() {
     setIsHistoryLoading(true);
     try {
       // Endpoint: Listar Chats (obtener-mensajes)
-      const response = await fetch('https://sujetopb.app.n8n.cloud/webhook/obtener-mensajes');
+      const response = await fetch('https://fjbs.app.n8n.cloud/webhook-test/obtener-mensajes');
       const text = await response.text();
 
       if (text) {
@@ -102,7 +102,7 @@ function App() {
     setIsLoading(true);
     try {
       // Endpoint: Ver Historial (usa sessionId)
-      const response = await fetch(`https://sujetopb.app.n8n.cloud/webhook/ver-historial?sessionId=${sessionId}`);
+      const response = await fetch(`https://fjbs.app.n8n.cloud/webhook-test/ver-historial?sessionId=${sessionId}`);
       const text = await response.text();
 
       if (text) {
@@ -147,7 +147,7 @@ function App() {
 
     try {
       // Endpoint: Chat Agente
-      const response = await fetch('https://sujetopb.app.n8n.cloud/webhook/calendar-agent', {
+      const response = await fetch('https://fjbs.app.n8n.cloud/webhook-test/calendar-agent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
