@@ -146,19 +146,32 @@ function App() {
     setIsLoading(true);
 
     try {
+      console.log("Enviando mensaje a n8n:", { sessionId: sessionIdToUse, message: userMessage });
+      
       // Endpoint: Chat Agente
       const response = await fetch('https://fjbs.app.n8n.cloud/webhook-test/calendar-agent', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({
           sessionId: sessionIdToUse,
           message: userMessage
         })
       });
 
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      console.log("Status de respuesta:", response.status);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error del servidor:", errorText);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const text = await response.text();
+      console.log("Respuesta cruda de n8n:", text);
+      
       if (!text) throw new Error("El servidor envió una respuesta vacía");
 
       const data = JSON.parse(text);
